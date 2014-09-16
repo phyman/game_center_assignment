@@ -1,0 +1,7 @@
+# .gitignore
+
+# ignore any DIRECTORY which is named starting with a tilde (~)
+*~/
+
+# ignore any FILE which is named starting with a tilde (~)
+~*
