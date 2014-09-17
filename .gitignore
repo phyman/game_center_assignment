@@ -7,7 +7,7 @@
 # ignore any FILE which is named starting with a tilde (~)
 ~*
 
-# templated defs borrowed from here: https://github.com/phyman/gitignore/blob/master/Ruby.
+# templated parameters borrowed from here: https://github.com/phyman/gitignore/blob/master/Ruby.
 
 gitignore
 *.gem
