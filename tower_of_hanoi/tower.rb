@@ -4,3 +4,6 @@
 # Copyright:      (C) Paul H. Hyman 2014 -
 # Product:        CLI version of the Tower of Hanoi game written in Ruby
 
+#!/usr/bin/ruby
+def disks = [A,B,C,D]
+	

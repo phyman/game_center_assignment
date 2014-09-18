@@ -4,3 +4,4 @@
 # Copyright:      (C) Paul H. Hyman 2014 -
 # Product:        CLI version of the Mastermind game written in Ruby
 
+#!/usr/bin/ruby
