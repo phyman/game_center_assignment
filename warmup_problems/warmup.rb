@@ -6,15 +6,21 @@
 
 #!/usr/bin/ruby
 
+################################
+# DEBUG CONTROLS
+
 NONE	= 0
 DEBUG = 1
-INFO 	= 2
-WARN 	= 3
-ERROR = 4
-MSG_LEVEL = NONE 
+MSG_LEVEL = DEBUG 
 Production = false
+
 ################################
-# Dice
+# Dice Class
+#
+# Pass in the number of sides the dice is have.
+#
+# Call roll() to roll the dice (return a random number)
+#
 
 class Dice
 
@@ -32,12 +38,12 @@ protected
 
 public
 
-	# allow the number of sides of the dice to be known
+	# allow the number of sides of the dice to be known to the public
 	attr_reader :num_sides 
 
 	def roll()
-		if MSG_LEVEL >= INFO
-			puts "rolling a #{@num_sides} sided dice" 
+		if MSG_LEVEL >= DEBUG
+			puts "Dice::roll -> rolling a #{@num_sides} sided dice" 
 		end
 		return rand(1..@num_sides) 
 	end # roll
@@ -45,43 +51,18 @@ public
 end #Dice
 
 ################################
-# SixSidedDice
+# roll_dice method
+# 
+# num_dice: 	the number of dice to roll (default is 1)
+# num_sides: 	the number of sides the dice should have (default is 6)
+# 
+# returns:  	the accumulated total of all the dice rolled
+# 
 
-class SixSidedDice < Dice
-
-private
-	Num_sides = 6 # a CONST var
-
-protected
-	def initialize()
-		if MSG_LEVEL >= DEBUG
-			puts "SixSidedDice.INIT"	
-		end
-		super(Num_sides)
-	end
-
-# >> this works <<
-# private
-# 	@num_sides = 6
-#
-# protected 
-# 	def initialize(num_sides = 6)
-# 		if MSG_LEVEL <= DEBUG
-# 			puts "SixSidedDice.INIT"	
-# 		end
-# 		super(num_sides)
-# 	end
-
-end # SixSidedDice
-
-
-################################
-# roll_dice
-
-def roll_dice(num_dice = 1, dice_type = SixSidedDice)
+def roll_dice(num_dice = 1, num_sides = 6)
 
 	accumulator = 0
-	dice_type = dice_type.new # defaults to SixSidedDice
+	dice_type = Dice.new(num_sides)
 
 	num_dice.times do 
 		if Production
@@ -89,6 +70,9 @@ def roll_dice(num_dice = 1, dice_type = SixSidedDice)
 		else
 			roll_result = dice_type.roll 
 			accumulator += roll_result	
+			if MSG_LEVEL >= DEBUG
+				puts "roll_dice:: Rolled a #{roll_result} & current total is: #{accumulator}"
+			end
 		end
 	end # times loop
 
@@ -98,32 +82,9 @@ def roll_dice(num_dice = 1, dice_type = SixSidedDice)
 		puts "#{accumulator}"
 	end
 
-
 end #roll_dice
 
 
-# roll_dice(rand(1..6)) # call from script
-roll_dice(10) # call from script
+roll_dice(rand(1..6)) # call from script
+# roll_dice(10) # call from script
 
-=begin
-################################
-# roll_dice
-
-def roll_dice(num_dice = 1)
-	accumulator = 0
-	num_sides = 6
-	
-	num_dice.times do
-		# debugging
-		roll_result = rand(1..num_sides)
-		accumulator += roll_result
-		# prod
-		#accumulator += rand(1..num_sides)
-		puts "Rolled a #{roll_result}. Total is now #{accumulator}"
-	end # times loop
-
-	puts accumulator
-end #roll_dice
-
-roll_dice(rand(1..6))
-=end
